@@ -1,6 +1,6 @@
 export default function LoginLink(props) {
   console.log(props.loggedIn);
-  if (props.loggedIn === "true") return <ShowLogout />;
+  if (props.loggedIn) return <ShowLogout />;
   return <ShowloginAndSignUp />;
 }
 

@@ -1,11 +1,8 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React from "react";
-
 import logo from "./logo.svg";
 import "./App.css";
-
 import secured from "./lib/secured";
-
 import MyChannels from "./components/MyChannels";
 import LoginForm from "./components/LoginForm";
 import LoginOutScreen from "./components/LoginOutScreen";
@@ -47,14 +44,14 @@ class App extends React.Component {
           <main>
             <Switch>
               <Route exact path="/">
-                <ChannelsSecured />
+                <ChannelsSecured loggedIn={this.isloggedIn()} token={this.token} />
               </Route>
-              <Route path="/discover"><AllChannelsSecured /></Route>
+              <Route path="/discover"><AllChannelsSecured loggedIn={this.isloggedIn()} token={this.token} /></Route>
               <Route path="/logout">
-                <LoginOutScreen />
+                <LoginOutScreen onByeBye={() => this.onByeBye()} />
               </Route>
               <Route path="/login">
-                <LoginForm />
+                <LoginForm onTokenReceived={(token) => this.onTokenReceived(token)} />
               </Route>
               <Route path="/signup">
                 ...
@@ -76,6 +73,15 @@ class App extends React.Component {
 
   saveToken(value) {
     return window.localStorage.setItem("AUTH_TOKEN", value);
+  }
+
+  onTokenReceived(token) {
+    this.saveToken(token);
+    window.location.href = '/';
+  }
+
+  onByeBye() {
+    window.localStorage.removeItem('AUTH_TOKEN');
   }
 }
 

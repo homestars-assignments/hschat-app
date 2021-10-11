@@ -2,7 +2,6 @@ import React from 'react';
 
 class MyChannels extends React.Component {
   componentDidMount() {
-    
   }
 
   render() {

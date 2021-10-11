@@ -2,6 +2,10 @@ import React from 'react';
 
 class LoginOutScreen extends React.Component {
 
+  componentDidMount() {
+    this.props.onByeBye();
+  }
+
   render() {
     return (
       <div>
