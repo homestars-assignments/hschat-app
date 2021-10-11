@@ -1,4 +1,5 @@
 import React from "react";
+import ChannelList from "./shared/ChannelsList";
 
 class AllChannels extends React.Component {
   constructor(props) {
@@ -8,33 +9,27 @@ class AllChannels extends React.Component {
 
   componentDidMount() {
     const apiUrl = process.env.REACT_APP_SERVER_URL;
-    window.fetch(`${apiUrl}/channels`, {
+
+    console.log(this.props.token);
+    console.log(`${apiUrl}/channels`);
+
+    fetch(`${apiUrl}/channels`, {
       method: "GET",
-      headers: { Authorization: this.props.token },
+      headers: { 'Authorization': this.props.token }
     })
-      .then((response) => this.onChannels(response))
+      .then((response) => this.onChannels(response, this))
       .catch((err) => this.onError(err));
   }
 
   render() {
     return (
-      <div>
-        <ul>
-          <li>Channel 1</li>
-          <li>Channel 2</li>
-          <li>Channel 3</li>
-          <li>Channel 3</li>
-          <li>Channel 3</li>
-          <li>Channel 3</li>
-          <li>Channel 3</li>
-        </ul>
-      </div>
+      <ChannelList channels={this.state.channels} />
     );
   }
-
-  onChannels(response) {
+  
+  onChannels(response, parent) {
     response.json().then(function(json) {
-      console.log(json);
+      parent.setState({ channels: json })
     });
   }
 

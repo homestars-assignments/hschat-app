@@ -44,9 +44,9 @@ class App extends React.Component {
           <main>
             <Switch>
               <Route exact path="/">
-                <ChannelsSecured loggedIn={this.isloggedIn()} token={this.token} />
+                <ChannelsSecured loggedIn={this.isloggedIn()} token={this.token()} />
               </Route>
-              <Route path="/discover"><AllChannelsSecured loggedIn={this.isloggedIn()} token={this.token} /></Route>
+              <Route path="/discover"><AllChannelsSecured loggedIn={this.isloggedIn()} token={this.token()} /></Route>
               <Route path="/logout">
                 <LoginOutScreen onByeBye={() => this.onByeBye()} />
               </Route>

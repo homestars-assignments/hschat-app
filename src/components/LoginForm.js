@@ -1,5 +1,5 @@
 import React from "react";
-import { $, delAttr, setAttr } from "../lib/vanillaTools";
+import { $ } from "../lib/vanillaTools";
 
 import "../styles/forms.css";
 class LoginForm extends React.Component {

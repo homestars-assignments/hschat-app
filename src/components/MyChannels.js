@@ -1,20 +1,39 @@
-import React from 'react';
+import React from "react";
+import ChannelList from "./shared/ChannelsList";
 
-class MyChannels extends React.Component {
+class AllChannels extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { channels: [] };
+  }
+
   componentDidMount() {
+    const apiUrl = process.env.REACT_APP_SERVER_URL;
+
+    fetch(`${apiUrl}/channels`, {
+      method: "GET",
+      headers: { 'Authorization': this.props.token, 'Content-Type': 'application/x-www-form-urlencoded' },
+      //body: { "joined": "true" }
+    })
+      .then((response) => this.onChannels(response, this))
+      .catch((err) => this.onError(err));
   }
 
   render() {
     return (
-      <div>
-        <ul>
-          <li>Channel 1</li>
-          <li>Channel 2</li>
-          <li>Channel 3</li>
-        </ul>
-      </div>
+      <ChannelList channels={this.state.channels} />
     );
+  }
+  
+  onChannels(response, parent) {
+    response.json().then(function(json) {
+      parent.setState({ channels: json })
+    });
+  }
+
+  onError(error) {
+    console.error(error);
   }
 }
 
-export default MyChannels;
+export default AllChannels;
