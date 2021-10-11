@@ -4,13 +4,20 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import Channels from "./components/Channels";
+import secured from "./lib/secured";
+
+import MyChannels from "./components/MyChannels";
 import LoginForm from "./components/LoginForm";
 import LoginOutScreen from "./components/LoginOutScreen";
+import LoginLink from "./components/authLinks";
+import AllChannels from "./components/AllChannels";
 
+// HOC wrap protected components
+const ChannelsSecured = secured(MyChannels);
+const AllChannelsSecured = secured(AllChannels);
+
+// Main app
 class App extends React.Component {
-  componentDidMount() {}
-
   render() {
     return (
       <div className="App">
@@ -32,7 +39,7 @@ class App extends React.Component {
                   </a>
                 </li>
                 <li>
-                  <LoginLink />
+                  <LoginLink loggedIn={this.isloggedIn()} />
                 </li>
               </ul>
             </nav>
@@ -40,14 +47,17 @@ class App extends React.Component {
           <main>
             <Switch>
               <Route exact path="/">
-                <Channels />
+                <ChannelsSecured />
               </Route>
-              <Route path="/discover">All Channels 📢</Route>
+              <Route path="/discover"><AllChannelsSecured /></Route>
               <Route path="/logout">
                 <LoginOutScreen />
               </Route>
               <Route path="/login">
                 <LoginForm />
+              </Route>
+              <Route path="/signup">
+                ...
               </Route>
             </Switch>
           </main>
@@ -55,31 +65,18 @@ class App extends React.Component {
       </div>
     );
   }
-}
 
-function LoginLink(props) {
-  if (token()) return <ShowLogout />;
-  return <ShowloginAndSignUp />;
-}
+  token() {
+    return window.localStorage.getItem("AUTH_TOKEN");
+  }
 
-function ShowloginAndSignUp(props) {
-  return (
-    <div>
-      <a href="/login">Login</a> / <a href="/signup">SignUp</a>
-    </div>
-  );
-}
+  isloggedIn() {
+    return this.token() !== null;
+  }
 
-function ShowLogout(props) {
-  return <a href="/logout">Logout</a>;
-}
-
-function token() {
-  return window.localStorage.getItem("AUTH_TOKEN");
-}
-
-function saveToken(value) {
-  return window.localStorage.setItem("AUTH_TOKEN", value);
+  saveToken(value) {
+    return window.localStorage.setItem("AUTH_TOKEN", value);
+  }
 }
 
 export default App;

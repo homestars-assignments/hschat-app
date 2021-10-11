@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Channels extends React.Component {
+class MyChannels extends React.Component {
   componentDidMount() {
     
   }
@@ -18,4 +18,4 @@ class Channels extends React.Component {
   }
 }
 
-export default Channels;
+export default MyChannels;
