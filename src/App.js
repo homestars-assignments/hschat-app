@@ -8,10 +8,13 @@ import LoginForm from "./components/LoginForm";
 import LoginOutScreen from "./components/LoginOutScreen";
 import LoginLink from "./components/authLinks";
 import AllChannels from "./components/AllChannels";
+import ChannelContent from "./components/ChannelContent";
+import { qsParam } from "./lib/vanillaTools";
 
 // HOC wrap protected components
 const ChannelsSecured = secured(MyChannels);
 const AllChannelsSecured = secured(AllChannels);
+const ChannelContentSecured = secured(ChannelContent);
 
 // Main app
 class App extends React.Component {
@@ -55,6 +58,9 @@ class App extends React.Component {
               </Route>
               <Route path="/signup">
                 ...
+              </Route>
+              <Route path="/channel">
+                <ChannelContentSecured selected={qsParam('id')} loggedIn={this.isloggedIn()} token={this.token()} />
               </Route>
             </Switch>
           </main>

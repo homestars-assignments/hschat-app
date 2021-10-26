@@ -61,7 +61,10 @@ class LoginForm extends React.Component {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `email=${this.state.email}&password=${this.state.password}`,
     })
-      .then((response) => this.onLoginOk(this, response))
+      .then((response) => {
+        if (!response.ok) throw new Error(response.statusText);
+        this.onLoginOk(this, response)
+      })
       .catch((err) => this.onLoginError(err))
       .finally(() => this.toggleLogin(true));
   }
@@ -73,6 +76,7 @@ class LoginForm extends React.Component {
   }
 
   onLoginError(err) {
+    alert(err.message);
     console.error(err);
   }
 

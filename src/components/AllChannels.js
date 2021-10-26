@@ -9,10 +9,6 @@ class AllChannels extends React.Component {
 
   componentDidMount() {
     const apiUrl = process.env.REACT_APP_SERVER_URL;
-
-    console.log(this.props.token);
-    console.log(`${apiUrl}/channels`);
-
     fetch(`${apiUrl}/channels`, {
       method: "GET",
       headers: { 'Authorization': this.props.token }
@@ -23,7 +19,7 @@ class AllChannels extends React.Component {
 
   render() {
     return (
-      <ChannelList channels={this.state.channels} />
+      <ChannelList channels={this.state.channels}  returnto={'/discover'} join={'true'}  />
     );
   }
   

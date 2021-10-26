@@ -10,24 +10,22 @@ class AllChannels extends React.Component {
   componentDidMount() {
     const apiUrl = process.env.REACT_APP_SERVER_URL;
 
-    fetch(`${apiUrl}/channels`, {
+    fetch(`${apiUrl}/channels?joined=true`, {
       method: "GET",
-      headers: { 'Authorization': this.props.token, 'Content-Type': 'application/x-www-form-urlencoded' },
-      //body: { "joined": "true" }
+      headers: {
+        Authorization: this.props.token      }
     })
       .then((response) => this.onChannels(response, this))
       .catch((err) => this.onError(err));
   }
 
   render() {
-    return (
-      <ChannelList channels={this.state.channels} />
-    );
+    return <ChannelList channels={this.state.channels} returnto='/' join='false' />;
   }
-  
+
   onChannels(response, parent) {
-    response.json().then(function(json) {
-      parent.setState({ channels: json })
+    response.json().then(function (json) {
+      parent.setState({ channels: json });
     });
   }
 

@@ -10,7 +10,7 @@
 
 header {
   background-color: #282c34;
-  height: 50px;
+  min-height: 50px;
   display: flex;
   justify-content: space-between;
   color: white;
@@ -37,8 +37,9 @@ nav ul, nav ul li {
 nav ul {
   margin: 0 auto;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
-  width: 300px;
+  max-width: 300px;
 }
 
 nav ul li {

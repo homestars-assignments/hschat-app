@@ -1,0 +1,25 @@
+ul.channels-list {
+  font-size: 3vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.channels-list li {
+  display: block;
+  padding: 10px 10px 20px;
+  background-color: #EBEBEB;
+  margin: 0 0 20px;
+  border-radius: 10px;
+}
+
+.channels-list li :nth-child(2) {
+  font-size: 80%;
+  margin-top: 10px;
+}
+
+.woi {
+  font-style: italic;
+  color: #EBEBEB;
+  font-size: 80%;
+}
